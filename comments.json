@@ -2,5 +2,6 @@
   {"author": "Alex Palcuie", "text": "I am the one and only."},
   {"author": "uberVU Engineer", "text": "I code."},
   {"author": "React core", "text": "This is _another_ comment"},
-  {"author": "Data scientist", "text": "This **cool** text comes from a JSON."}
+  {"author": "Data scientist", "text": "This **cool** text comes from a JSON."},
+  {"author": "Poll test", "text": "#### This may apper"}
 ]
