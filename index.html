@@ -11,12 +11,6 @@
     <script type="text/jsx">
       /** @jsx React.DOM */
       var converter = new Showdown.converter();
-      var data = [
-        {author: 'Alex Palcuie', text: 'I am the one and only.'},
-        {author: 'uberVU Engineer', text: 'I code.'},
-        {author: 'React core', text: 'This is _another_ comment'},
-        {author: 'Data scientist', text: 'This **cool** text comes from a JSON.'}
-      ]
 
       var Comment = React.createClass({
         render: function() {
@@ -58,18 +52,33 @@
       });
 
       var CommentBox = React.createClass({
+        getInitialState: function() {
+          return {data: []};
+        },
+        componentWillMount: function(){
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
         render: function() {
           return (
             <div className="commentBox">
               <h1>Comments</h1>
-              <CommentList data={this.props.data} />
+              <CommentList data={this.state.data} />
               <CommentForm />
             </div>
           );
         }
       });
 
-      React.renderComponent(<CommentBox data={data} />,
+      React.renderComponent(<CommentBox url="comments.json" />,
                             document.getElementById('content'));
     </script>
   </body>
