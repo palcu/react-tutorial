@@ -4,17 +4,20 @@
     <script src="http://fb.me/react-0.10.0.js"></script>
     <script src="http://fb.me/JSXTransformer-0.10.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
   </head>
   <body>
     <div id="content"></div>
     <script type="text/jsx">
       /** @jsx React.DOM */
+      var converter = new Showdown.converter();
+
       var Comment = React.createClass({
         render: function() {
           return (
             <div className="comment">
               <h2 className="commentAuthor">{this.props.author}</h2>
-              {this.props.children}
+              {converter.makeHtml(this.props.children.toString())}
             </div>
           );
         }
@@ -26,6 +29,7 @@
             <div className="commentList">
               <Comment author="Alex Palcuie">I am the one and only.</Comment>
               <Comment author="uberVU Engineer">I code.</Comment>
+              <Comment author="React core">This is _another_ comment</Comment>
             </div>
           );
         }
